@@ -6,12 +6,18 @@
 
 body {
     margin: 0;
-    background: linear-gradient(to right, #00aaff, #00ff6c);
+    background: linear-gradient(135deg, #FF4E50 0%, #F9D423 25%, #4AC29A 50%, #BDFFF3 75%, #8E54E9 100%);
+}
+
+#root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 .calculator-grid {
     display: grid;
-    margin-top: 2rem;
     justify-content: center;
     grid-template-columns: repeat(4, 6rem);
     grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);

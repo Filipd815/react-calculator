@@ -7,9 +7,7 @@ This markdown file serves as a documentation for a simple calculator app built w
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Components](#components)
-5. [Development](#development)
-6. [License](#license)
+4. [License](#license)
 
 ## Introduction
 

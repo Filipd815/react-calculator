@@ -3,6 +3,7 @@ import {useReducer} from "react";
 import DigitButton from "./DigitButton";
 import OperationButton from "./OperationButton";
 
+// Define action types for the reducer
 export const ACTIONS = {
     ADD_DIGIT: 'add-digit',
     CHOOSE_OPERATION: 'choose-operation',
@@ -11,8 +12,10 @@ export const ACTIONS = {
     EVALUATE: 'evaluate'
 }
 
+// Reducer function for the calculator
 const reducer = (state, {type, payload}) => {
     switch (type) {
+        // Add a digit to the current operand
         case ACTIONS.ADD_DIGIT:
 
             if (state.overwrite) {
@@ -36,6 +39,7 @@ const reducer = (state, {type, payload}) => {
                 currentOperand: `${state.currentOperand || ''}${payload.digit}`
             }
 
+        // Choose the operation to perform
         case ACTIONS.CHOOSE_OPERATION:
             if (state.currentOperand == null && state.previousOperand == null) {
                 return state
@@ -63,8 +67,12 @@ const reducer = (state, {type, payload}) => {
                 operation: payload.operation,
                 currentOperand: null
             }
+
+        // Clear the calculator state
         case ACTIONS.CLEAR:
             return {}
+
+        // Delete the last digit from the current operand
         case ACTIONS.DELETE_DIGIT:
             if (state.overwrite) {
                 return {
@@ -87,6 +95,8 @@ const reducer = (state, {type, payload}) => {
                 ...state,
                 currentOperand: state.currentOperand.slice(0, -1)
             }
+
+        // Evaluate the current expression
         case ACTIONS.EVALUATE:
             if (state.operation == null ||
                 state.currentOperand == null ||
@@ -104,6 +114,7 @@ const reducer = (state, {type, payload}) => {
     }
 }
 
+// Function to evaluate the current expression
 const evaluate = ({currentOperand, previousOperand, operation}) => {
     const prev = parseFloat(previousOperand);
     const current = parseFloat(currentOperand);
@@ -130,10 +141,12 @@ const evaluate = ({currentOperand, previousOperand, operation}) => {
     return computation.toString();
 }
 
+// Formatter to display numbers in the calculator
 const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
     maximumFractionDigits: 0,
 })
 
+// Function to format the operand for display
 const formatOperand = (operand) => {
     if (operand == null) return;
     const [integer, decimal] = operand.split('.');
@@ -141,12 +154,14 @@ const formatOperand = (operand) => {
     return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
 }
 
+// Main App component
 const App = () => {
     const [{currentOperand, previousOperand, operation}, dispatch] = useReducer(
         reducer,
         {}
     );
 
+    // Render the calculator
     return (
         <div className='calculator-grid'>
             <div className='output'>
